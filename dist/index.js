@@ -74,8 +74,8 @@ export function run() {
         }
     });
 }
-/* ignore next */
-if (require.main === module) {
+/* Check if this module is the entry point */
+if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
     run();
 }
 //# sourceMappingURL=index.js.map

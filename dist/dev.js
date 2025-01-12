@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import createPDF from "./createPDF";
 import * as fs from "fs/promises";
+import * as path from "path";
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const pdf = yield createPDF("https://lonewanderer27.github.io/resume", {}, {
@@ -25,8 +26,8 @@ function run() {
         return pdf;
     });
 }
-/* ignore next */
-if (require.main === module) {
+/* Check if this module is the entry point */
+if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
     run();
 }
 //# sourceMappingURL=dev.js.map
