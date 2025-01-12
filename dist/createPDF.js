@@ -1,27 +1,21 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-import puppeteer from "puppeteer";
-function createPDF(url_1) {
-    return __awaiter(this, arguments, void 0, function* (url, launchArgs = {}, pdfOptions = {}) {
-        try {
-            const browser = yield puppeteer.launch(Object.assign({ headless: true }, launchArgs));
-            const page = yield browser.newPage();
-            yield page.goto(url, { waitUntil: "networkidle0" });
-            const pdf = yield page.pdf(Object.assign({ format: "A4" }, pdfOptions));
-            yield browser.close();
-            return pdf;
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
+Object.defineProperty(exports, "__esModule", { value: true });
+const puppeteer_1 = __importDefault(require("puppeteer"));
+async function createPDF(url, launchArgs = {}, pdfOptions = {}) {
+    try {
+        const browser = await puppeteer_1.default.launch({ headless: true, ...launchArgs });
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: "networkidle0" });
+        const pdf = await page.pdf({ format: "A4", ...pdfOptions });
+        await browser.close();
+        return pdf;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
-export default createPDF;
+exports.default = createPDF;
 //# sourceMappingURL=createPDF.js.map

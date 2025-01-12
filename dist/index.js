@@ -1,17 +1,47 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
+"use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-import * as core from "@actions/core";
-import * as fs from "fs/promises";
-import * as os from "os";
-import * as path from "path";
-import createPDF from "./createPDF";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = run;
+const core = __importStar(require("@actions/core"));
+const fs = __importStar(require("fs/promises"));
+const os = __importStar(require("os"));
+const path = __importStar(require("path"));
+const createPDF_1 = __importDefault(require("./createPDF"));
 function getChromePath() {
     let browserPath = "";
     if (os.type() === "Windows_NT") {
@@ -33,48 +63,46 @@ function getChromePath() {
     }
     throw new TypeError(`Cannot run action. ${os.type} is not supported.`);
 }
-export function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const chromePath = getChromePath();
-            // Get inputs
-            const url = core.getInput("url");
-            const outputFilePath = core.getInput("output-file-path");
-            const pageRanges = core.getInput("page-ranges", { required: false });
-            const format = core.getInput("format", { required: false });
-            const margin = core.getInput("margin", { required: false });
-            let topMargin = core.getInput("top-margin", { required: false });
-            let bottomMargin = core.getInput("bottom-margin", { required: false });
-            let rightMargin = core.getInput("left-margin", { required: false });
-            let leftMargin = core.getInput("right-margin", { required: false });
-            // if margin is set, override the values of all sides margin
-            if (margin !== "") {
-                topMargin = margin;
-                bottomMargin = margin;
-                rightMargin = margin;
-                leftMargin = margin;
+async function run() {
+    try {
+        const chromePath = getChromePath();
+        // Get inputs
+        const url = core.getInput("url");
+        const outputFilePath = core.getInput("output-file-path");
+        const pageRanges = core.getInput("page-ranges", { required: false });
+        const format = core.getInput("format", { required: false });
+        const margin = core.getInput("margin", { required: false });
+        let topMargin = core.getInput("top-margin", { required: false });
+        let bottomMargin = core.getInput("bottom-margin", { required: false });
+        let rightMargin = core.getInput("left-margin", { required: false });
+        let leftMargin = core.getInput("right-margin", { required: false });
+        // if margin is set, override the values of all sides margin
+        if (margin !== "") {
+            topMargin = margin;
+            bottomMargin = margin;
+            rightMargin = margin;
+            leftMargin = margin;
+        }
+        const pdf = await (0, createPDF_1.default)(url, {
+            executablePath: chromePath,
+            args: ["--no-sandbox", "--disable-setuid-sandbox"],
+        }, {
+            pageRanges: pageRanges,
+            format: format,
+            margin: {
+                top: topMargin,
+                bottom: bottomMargin,
+                left: leftMargin,
+                right: rightMargin
             }
-            const pdf = yield createPDF(url, {
-                executablePath: chromePath,
-                args: ["--no-sandbox", "--disable-setuid-sandbox"],
-            }, {
-                pageRanges: pageRanges,
-                format: format,
-                margin: {
-                    top: topMargin,
-                    bottom: bottomMargin,
-                    left: leftMargin,
-                    right: rightMargin
-                }
-            });
-            yield fs.writeFile(outputFilePath, pdf);
-        }
-        catch (err) {
-            console.log(err);
-        }
-    });
+        });
+        await fs.writeFile(outputFilePath, pdf);
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
-/* Check if this module is the entry point */
+// @ts-ignore
 if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
     run();
 }

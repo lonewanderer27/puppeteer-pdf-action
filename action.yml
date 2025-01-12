@@ -30,8 +30,8 @@ inputs:
     required: false,
     description: 'PDF bottom margin'
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node16"
+  main: "dist/index.js"
 branding:
   icon: 'message-square'  
   color: 'gray-dark'

@@ -17,11 +17,11 @@ async function run() {
       },
     },
   );
-  await fs.writeFile("output.pdf", pdf);
+  await fs.writeFile("output.pdf", pdf!);
   return pdf;
 }
 
-/* Check if this module is the entry point */
+// @ts-ignore
 if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
   run();
 }

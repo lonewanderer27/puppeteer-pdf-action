@@ -3,7 +3,7 @@ import * as fs from "fs/promises";
 import * as os from "os";
 import * as path from "path";
 import createPDF from "./createPDF";
-import { PaperFormat, PDFMargin } from "puppeteer";
+import { PaperFormat } from "puppeteer";
 
 function getChromePath() {
   let browserPath = "";
@@ -73,13 +73,13 @@ export async function run() {
         }
       }
     );
-    await fs.writeFile(outputFilePath, pdf);
+    await fs.writeFile(outputFilePath, pdf!);
   } catch (err) {
     console.log(err);
   }
 }
 
-/* Check if this module is the entry point */
+// @ts-ignore
 if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
   run();
 }
