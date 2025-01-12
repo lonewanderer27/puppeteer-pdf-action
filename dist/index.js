@@ -117,7 +117,7 @@ async function run() {
     }
 }
 // @ts-ignore
-if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
+if (require.main === module) {
     run();
 }
 //# sourceMappingURL=index.js.map

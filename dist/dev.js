@@ -35,7 +35,6 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const _1 = require(".");
 const fs = __importStar(require("fs/promises"));
-const path = __importStar(require("path"));
 async function run() {
     const pdf = await (0, _1.createPDF)("https://lonewanderer27.github.io/resume", {}, {
         format: "A4",
@@ -51,7 +50,7 @@ async function run() {
     return pdf;
 }
 // @ts-ignore
-if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
+if (require.main === module) {
     run();
 }
 //# sourceMappingURL=dev.js.map
