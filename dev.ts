@@ -1,4 +1,4 @@
-import createPDF from "./createPDF";
+import { createPDF } from ".";
 import * as fs from "fs/promises";
 import * as path from "path";
 

@@ -32,15 +32,12 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const createPDF_1 = __importDefault(require("./createPDF"));
+const _1 = require(".");
 const fs = __importStar(require("fs/promises"));
 const path = __importStar(require("path"));
 async function run() {
-    const pdf = await (0, createPDF_1.default)("https://lonewanderer27.github.io/resume", {}, {
+    const pdf = await (0, _1.createPDF)("https://lonewanderer27.github.io/resume", {}, {
         format: "A4",
         pageRanges: "1",
         margin: {

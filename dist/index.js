@@ -36,12 +36,26 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.createPDF = createPDF;
 exports.run = run;
 const core = __importStar(require("@actions/core"));
 const fs = __importStar(require("fs/promises"));
 const os = __importStar(require("os"));
 const path = __importStar(require("path"));
-const createPDF_1 = __importDefault(require("./createPDF"));
+const puppeteer_1 = __importDefault(require("puppeteer"));
+async function createPDF(url, launchArgs = {}, pdfOptions = {}) {
+    try {
+        const browser = await puppeteer_1.default.launch({ headless: true, ...launchArgs });
+        const page = await browser.newPage();
+        await page.goto(url, { waitUntil: "networkidle0" });
+        const pdf = await page.pdf({ format: "A4", ...pdfOptions });
+        await browser.close();
+        return pdf;
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
 function getChromePath() {
     let browserPath = "";
     if (os.type() === "Windows_NT") {
@@ -83,7 +97,7 @@ async function run() {
             rightMargin = margin;
             leftMargin = margin;
         }
-        const pdf = await (0, createPDF_1.default)(url, {
+        const pdf = await createPDF(url, {
             executablePath: chromePath,
             args: ["--no-sandbox", "--disable-setuid-sandbox"],
         }, {
