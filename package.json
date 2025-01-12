@@ -5,13 +5,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx dev.ts"
+    "dev": "tsx dev.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "@actions/core": "^1.11.1",
     "puppeteer": "^24.0.0"
   },
   "devDependencies": {
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
   }
 }

@@ -13,11 +13,14 @@ importers:
         version: 1.11.1
       puppeteer:
         specifier: ^24.0.0
-        version: 24.0.0
+        version: 24.0.0(typescript@5.7.3)
     devDependencies:
       tsx:
         specifier: ^4.19.2
         version: 4.19.2
+      typescript:
+        specifier: ^5.7.3
+        version: 5.7.3
 
 packages:
 
@@ -558,6 +561,11 @@ packages:
   typed-query-selector@2.12.0:
     resolution: {integrity: sha512-SbklCd1F0EiZOyPiW192rrHZzZ5sBijB6xM+cpmrwDqObvdtunOHHIk9fCGsoK5JVIYXoyEp4iEdE3upFH3PAg==}
 
+  typescript@5.7.3:
+    resolution: {integrity: sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   unbzip2-stream@1.4.3:
     resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
 
@@ -809,12 +817,14 @@ snapshots:
 
   color-name@1.1.4: {}
 
-  cosmiconfig@9.0.0:
+  cosmiconfig@9.0.0(typescript@5.7.3):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       parse-json: 5.2.0
+    optionalDependencies:
+      typescript: 5.7.3
 
   data-uri-to-buffer@6.0.2: {}
 
@@ -1044,11 +1054,11 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  puppeteer@24.0.0:
+  puppeteer@24.0.0(typescript@5.7.3):
     dependencies:
       '@puppeteer/browsers': 2.7.0
       chromium-bidi: 0.12.0(devtools-protocol@0.0.1367902)
-      cosmiconfig: 9.0.0
+      cosmiconfig: 9.0.0(typescript@5.7.3)
       devtools-protocol: 0.0.1367902
       puppeteer-core: 24.0.0
       typed-query-selector: 2.12.0
@@ -1138,6 +1148,8 @@ snapshots:
   tunnel@0.0.6: {}
 
   typed-query-selector@2.12.0: {}
+
+  typescript@5.7.3: {}
 
   unbzip2-stream@1.4.3:
     dependencies:
