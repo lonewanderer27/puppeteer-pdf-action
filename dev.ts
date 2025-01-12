@@ -20,7 +20,4 @@ async function run() {
   return pdf;
 }
 
-// @ts-ignore
-if (require.main === module) {
-  run();
-}
+run();

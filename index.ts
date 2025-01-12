@@ -95,7 +95,4 @@ export async function run() {
   }
 }
 
-// @ts-ignore
-if (require.main === module) {
-  run();
-}
+run();
