@@ -1,6 +1,5 @@
 {
   "name": "puppeteer-pdf-action",
-  "type": "module",
   "description": "Get PDF version of a webpage",
   "version": "1.0.0",
   "main": "index.js",
