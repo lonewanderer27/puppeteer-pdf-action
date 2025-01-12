@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import os from "os";
 import path from "path";
 import createPDF from "./createPDF";
+import { PaperFormat, PDFMargin } from "puppeteer";
 
 function getChromePath() {
   let browserPath = "";
@@ -15,7 +16,7 @@ function getChromePath() {
         : process.env.PROGRAMFILES;
     browserPath = path.join(
       programFiles!,
-      "Google/Chrome/Application/chrome.exe",
+      "Google/Chrome/Application/chrome.exe"
     );
   } else if (os.type() === "Linux") {
     browserPath = "/usr/bin/google-chrome";
@@ -33,13 +34,45 @@ function getChromePath() {
 
 export async function run() {
   try {
-    const url = core.getInput("url");
     const chromePath = getChromePath();
+
+    // Get inputs
+    const url = core.getInput("url");
     const outputFilePath = core.getInput("output-file-path");
-    const pdf = await createPDF(url, {
-      executablePath: chromePath,
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
-    });
+    const pageRanges = core.getInput("page-ranges", { required: false });
+    const format = core.getInput("format", { required: false }) as PaperFormat;
+    const margin = core.getInput("margin", { required: false });
+
+    let topMargin = core.getInput("top-margin", { required: false })
+    let bottomMargin = core.getInput("bottom-margin", { required: false })
+    let rightMargin = core.getInput("left-margin", { required: false })
+    let leftMargin = core.getInput("right-margin", { required: false })
+
+    // if margin is set, override the values of all sides margin
+    if (margin !== "") {
+      topMargin = margin;
+      bottomMargin = margin;
+      rightMargin = margin;
+      leftMargin = margin;
+    }
+
+    const pdf = await createPDF(
+      url,
+      {
+        executablePath: chromePath,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      },
+      {
+        pageRanges: pageRanges,
+        format: format,
+        margin: {
+          top: topMargin,
+          bottom: bottomMargin,
+          left: leftMargin,
+          right: rightMargin
+        }
+      }
+    );
     await fs.writeFile(outputFilePath, pdf);
   } catch (err) {
     console.log(err);
