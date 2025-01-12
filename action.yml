@@ -24,10 +24,10 @@ inputs:
     required: false
     description: 'PDF right margin'
   top-margin:
-    required: false,
+    required: false
     description: 'PDF top margin'
   bottom-margin:
-    required: false,
+    required: false
     description: 'PDF bottom margin'
 runs:
   using: "node16"
