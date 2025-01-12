@@ -6,6 +6,6 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.4",
-    "puppeteer": "^5.2.1"
+    "puppeteer": "^24.0.0"
   }
 }
