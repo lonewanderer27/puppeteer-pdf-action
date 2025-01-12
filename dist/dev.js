@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import createPDF from "./createPDF";
-import fs from "fs/promises";
+import * as fs from "fs/promises";
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         const pdf = yield createPDF("https://lonewanderer27.github.io/resume", {}, {

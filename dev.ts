@@ -1,5 +1,6 @@
 import createPDF from "./createPDF";
-import fs from "fs/promises";
+import * as fs from "fs/promises";
+import * as path from "path";
 
 async function run() {
   const pdf = await createPDF(
@@ -20,7 +21,7 @@ async function run() {
   return pdf;
 }
 
-/* ignore next */
-if (require.main === module) {
+/* Check if this module is the entry point */
+if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
   run();
 }

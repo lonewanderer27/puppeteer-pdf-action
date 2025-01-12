@@ -1,7 +1,7 @@
-import core from "@actions/core";
-import fs from "fs/promises";
-import os from "os";
-import path from "path";
+import * as core from "@actions/core";
+import * as fs from "fs/promises";
+import * as os from "os";
+import * as path from "path";
 import createPDF from "./createPDF";
 import { PaperFormat, PDFMargin } from "puppeteer";
 
@@ -79,7 +79,7 @@ export async function run() {
   }
 }
 
-/* ignore next */
-if (require.main === module) {
+/* Check if this module is the entry point */
+if (path.basename(import.meta.url) === path.basename(process.argv[1])) {
   run();
 }

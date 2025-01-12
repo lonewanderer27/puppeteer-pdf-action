@@ -7,10 +7,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import core from "@actions/core";
-import fs from "fs/promises";
-import os from "os";
-import path from "path";
+import * as core from "@actions/core";
+import * as fs from "fs/promises";
+import * as os from "os";
+import * as path from "path";
 import createPDF from "./createPDF";
 function getChromePath() {
     let browserPath = "";
