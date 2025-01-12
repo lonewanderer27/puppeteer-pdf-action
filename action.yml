@@ -10,27 +10,25 @@ inputs:
     default: 'output.pdf'
   page-ranges:
     required: false
-    description: "Paper ranges to print, e.g. 1-5, 8, 11-13"
-    default: '',
+    description: 'Paper ranges to print, e.g. 1-5, 8, 11-13'
   format:
     required: false
-    description: "Sets the width of paper. You can pass in a number or a string with a unit.",
-    default: ''
+    description: 'Sets the width of paper. You can pass in a number or a string with a unit.'
   margin:
     required: false
-    description: "Set the PDF margins. If set, it overrides the values of individual margins."
+    description: 'Set the PDF margins. If set, it overrides the values of individual margins.'
   left-margin:
     required: false
-    description: "PDF left margin"
+    description: 'PDF left margin'
   right-margin:
     required: false
-    description: "PDF right margin"
+    description: 'PDF right margin'
   top-margin:
     required: false,
-    description: "PDF top margin"
+    description: 'PDF top margin'
   bottom-margin:
     required: false,
-    description: "PDF bottom margin"
+    description: 'PDF bottom margin'
 runs:
   using: 'node12'
   main: 'dist/index.js'
